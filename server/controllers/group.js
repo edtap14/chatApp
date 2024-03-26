@@ -1,4 +1,4 @@
-import { Group, User } from '../models/index.js';
+import { Group, GroupMessage, User } from '../models/index.js';
 import { getFilePath } from '../utils/index.js';
 
 function create(req, res) {
@@ -30,9 +30,21 @@ function getAll(req, res) {
     Group.find({ participants: user_id })
         .populate('creator')
         .populate('participants')
-        .then((groups) => {
-            //TODO: Obtener fecha del ultim mensaje de cada grupo
-            res.status(200).send(groups);
+        .then(async (groups) => {
+
+            const arrayGroups = [];
+
+            for await (const group of groups) {
+                const response = await GroupMessage.findOne({ group: group._id })
+                    .sort({ createdAt: -1 });
+
+                arrayGroups.push({
+                    ...group._doc,
+                    last_message_date: response?.createdAt || null
+                });
+            }
+            res.status(200).send(arrayGroups);
+
         })
         .catch(() => {
             res.status(400).send({ msg: 'Error al recuperar los grupos' });
