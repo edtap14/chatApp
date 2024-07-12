@@ -1,0 +1,122 @@
+import { ENV } from '../utils';
+
+export class Group {
+    async create(accessToken, creatorId, usersId, name, image) {
+
+        try {
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('image', image);
+            formData.append('creator', creatorId);
+            formData.append('participants', JSON.stringify([...usersId]));
+
+            const url = `${ ENV.API_URL }/${ ENV.ENDPOINTS.GROUP }`;
+            const params = {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${ accessToken }`,
+                },
+                body: formData
+            };
+
+            const response = await fetch(url, params);
+            const result = await response.json();
+
+            if (response.status !== 200) throw result;
+
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getAllGroups(accessToken) {
+        try {
+            const url = `${ ENV.API_URL }/${ ENV.ENDPOINTS.GROUP }`;
+            const params = {
+                headers: {
+                    Authorization: `Bearer ${ accessToken }`
+                }
+            };
+
+            const response = await fetch(url, params);
+            const result = await response.json();
+
+            if (response.status !== 200) throw result;
+
+            return result;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async obtainDataGroup(accessToken, groupId) {
+        try {
+            const url = `${ ENV.API_URL }/${ ENV.ENDPOINTS.GROUP }/${ groupId }`;
+            const params = {
+                headers: {
+                    Authorization: `Bearer ${ accessToken }`
+                }
+            };
+
+            const response = await fetch(url, params);
+            const result = await response.json();
+
+            if (response.status !== 200) throw result;
+
+            return result;
+
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async exitGroup(accessToken, groupId) {
+        try {
+            const url = `${ ENV.API_URL }/${ ENV.ENDPOINTS.GROUP_EXIT }/${ groupId }`;
+            const params = {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${ accessToken }`
+                }
+            };
+
+            const response = await fetch(url, params);
+            const result = await response.json();
+
+            if (response.status !== 200) throw result;
+
+            return result;
+
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async updateGroup(accessToken, groupId, data) {
+        try {
+            const formData = new FormData();
+            if (data.file) formData.append('image', data.file);
+            if (data.name) formData.append('name', data.name);
+
+            const url = `${ ENV.API_URL }/${ ENV.ENDPOINTS.GROUP }/${ groupId }`;
+            const params = {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${ accessToken }`
+                },
+                body: formData
+            };
+
+            const response = await fetch(url, params);
+            const result = await response.json();
+
+            if (response.status !== 200) throw result;
+
+            return result;
+
+        } catch (e) {
+            throw e;
+        }
+    }
+}
