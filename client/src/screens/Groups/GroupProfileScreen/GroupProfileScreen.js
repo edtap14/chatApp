@@ -15,6 +15,10 @@ export function GroupProfileScreen() {
     const { params: { groupId } } = useRoute();
     const navigation = useNavigation();
     const [group, setGroup] = useState(null);
+    const [reload, setReload] = useState(false);
+
+    const onReload = () => setReload((prevState) => !prevState);
+
 
     useEffect(() => {
         (async () => {
@@ -25,7 +29,7 @@ export function GroupProfileScreen() {
                 console.error(e);
             }
         })();
-    }, [groupId]);
+    }, [groupId, reload]);
 
     const exitGroup = async () => {
         try {
@@ -41,7 +45,11 @@ export function GroupProfileScreen() {
     return (
         <ScrollView style={ styles.content }>
             { group ? (
-                        <GroupProfile.Info group={ group } setGroup={ setGroup }/>
+                        <>
+                            <GroupProfile.Info group={ group } setGroup={ setGroup }/>
+                            <GroupProfile.Participants group={ group } onReload={ onReload }/>
+                        </>
+
                     )
                     : null }
             <View style={ styles.actionsContent }>

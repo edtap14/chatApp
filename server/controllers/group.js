@@ -149,16 +149,18 @@ async function banParticipant(req, res) {
 
     const group = await Group.findById(group_id);
 
-    const newParticipants = group.participants.filter((participant) => participant.toString() !== user_id);
+    const newParticipants = group.participants.filter(
+        (participant) => participant.toString() !== user_id
+    );
 
     const newData = {
         ...group._doc,
-        participants: newParticipants
+        participants: newParticipants,
     };
 
     await Group.findByIdAndUpdate(group_id, newData);
 
-    res.status(200).send({ msg: 'Baneo con exito' });
+    res.status(200).send({ msg: 'Baneo con existo' });
 }
 
 export const GroupController = {

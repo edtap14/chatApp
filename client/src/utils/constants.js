@@ -14,6 +14,7 @@ export const ENV = {
         USER: {
             GETME: 'user/me',
             USER: 'user',
+            USER_EXCEPT_PARTICIPANTS_GROUP: 'users_exept_participants_group'
         },
         CHAT: 'chat',
         CHAT_MESSAGE: 'chat/message',
@@ -22,6 +23,7 @@ export const ENV = {
         CHAT_MESSAGE_TOTAL: 'chat/message/total',
         GROUP: 'group',
         GROUP_EXIT: 'group/exit',
+        GROUP_BAN: 'group/ban',
         GROUP_MESSAGE_TOTAL: 'group/message/total',
         GROUP_MESSAGE_LAST: 'group/message/last'
     },

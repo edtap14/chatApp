@@ -1,8 +1,9 @@
 import { View, Text, Pressable } from 'react-native';
 import { Avatar, InfoIcon } from 'native-base';
 import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
 import { Group } from '../../../../api';
-import { ENV, imageExpoFormat } from '../../../../utils';
+import { ENV, imageExpoFormat, screens } from '../../../../utils';
 import { styles } from './Info.styles';
 import { useAuth } from '../../../../hooks';
 
@@ -13,6 +14,7 @@ export const Info = ({
                      }) => {
 
     const { accessToken } = useAuth();
+    const navigation = useNavigation();
     const openGallery = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -42,6 +44,14 @@ export const Info = ({
         }
     };
 
+    const openChangeNameGroup = () => {
+        navigation.navigate(screens.global.changeNameGroupScreen, {
+            groupId: group._id,
+            groupName: group.name
+        });
+    };
+
+
     return (
         <View style={ styles.content }>
             <Pressable onPress={ openGallery }>
@@ -51,7 +61,7 @@ export const Info = ({
                     source={ { uri: `${ ENV.BASE_PATH }/${ group.image }` } }
                 />
             </Pressable>
-            <Text style={ styles.name } onPress={ () => console.log('CHANGE NAME') }>
+            <Text style={ styles.name } onPress={ openChangeNameGroup }>
                 { group.name } <InfoIcon/>
             </Text>
         </View>

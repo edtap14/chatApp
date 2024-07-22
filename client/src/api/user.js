@@ -89,4 +89,24 @@ export class User {
             throw e;
         }
     }
+
+    async getUsserExeptParticipantsGroup(accessToken, groupId) {
+        try {
+            const url = `${ ENV.API_URL }/${ ENV.ENDPOINTS.USER.USER_EXCEPT_PARTICIPANTS_GROUP }/${ groupId }`;
+            const params = {
+                headers: {
+                    Authorization: `Bearer ${ accessToken }`
+                }
+            };
+
+            const response = await fetch(url, params);
+            const result = response.json();
+
+            if (response.status !== 200) throw result;
+
+            return result;
+        } catch (e) {
+            throw e;
+        }
+    }
 }

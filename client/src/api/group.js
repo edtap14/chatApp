@@ -119,4 +119,30 @@ export class Group {
             throw e;
         }
     }
+
+    async banGroup(accessToken, groupId, participantId) {
+        try {
+            const url = `${ ENV.API_URL }/${ ENV.ENDPOINTS.GROUP_BAN }`;
+            const params = {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${ accessToken }`
+                },
+                body: JSON.stringify({
+                    group_id: groupId,
+                    user_id: participantId
+                })
+            };
+
+            const response = await fetch(url, params);
+            const result = await response.json();
+
+            if (response.status !== 200) throw result;
+
+            return result;
+        } catch (e) {
+            throw e;
+        }
+    }
 }

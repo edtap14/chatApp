@@ -12,5 +12,6 @@ export const colors = {
     blueSky: '#06b6e4',
     isMe: '#0891b2',
     notMe: '#202333',
-    greenBlue: '#164E63'
+    greenBlue: '#164E63',
+    blueCelestial: '#06b6d4'
 };

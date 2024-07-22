@@ -34,5 +34,7 @@ export const copies = {
     errorCamera: 'No has aceptado los permisos de la camara',
     groupName: 'Nombre del grupo',
     groupDontExist: 'No tienes nungún grupo, dale al (+) para crear el primero',
-    exitGroup: 'Salir del grupo'
+    exitGroup: 'Salir del grupo',
+    participants: 'Participantes',
+    addParticipants: 'Añadir participante'
 };

@@ -3,4 +3,4 @@ export * from './CreateGroupScreen';
 export * from './GroupsScreen';
 export * from './AddUserGroupScreen';
 export * from './GroupProfileScreen/GroupProfileScreen';
-export * from './ChangeNameGroupScreen';
+export * from './ChangeNameGroup/ChangeNameGroupScreen';
